@@ -10,7 +10,7 @@ Full Stack Personal Blog App
 - Login with flask-authentication
 - Use Css Styling and bootstrap components for the design
 
-[![Website](https://img.shields.io/badge/Website-matthewtaylor.pythonanywhere.com-informational?style=flat-square&color=8B89CC&logo=Google-Chrome&logoColor=white)](https://matthewtaylor.pythonanywhere.com)
+[![Website](https://img.shields.io/badge/Flask-matthewtaylor.pythonanywhere.com-informational?style=flat-square&color=E23237&logo=flask&logoColor=white)](https://matthewtaylor.pythonanywhere.com)
 
 <code><img height="30" alt="python" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg"></code>
 <code><img height="30" alt="python" src="https://raw.githubusercontent.com/bwks/vendor-icons-svg/702f2ac88acc71759ce623bc5000a596195e9db3/flask.svg"></code>
