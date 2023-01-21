@@ -109,19 +109,20 @@ def delete(id):
         return "Sorry couldn't delete the post"
 
 
-@app.route('/update/<int:id>', methods=['GET', 'POST'])
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
-def update(id):
+def edit(id):
     post = Post.query.get_or_404(id)
 
     if request.method == 'POST':
+        post.title = request.form['title']
         post.content = request.form['content']
 
         try:
             db.session.commit()
             return redirect('/post')
         except:
-            return 'There was an issue updating your task'
+            return "Sorry couldn't edit the post"
 
     else:
         return render_template('edit.html', post=post)

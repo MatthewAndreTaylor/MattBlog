@@ -27,9 +27,9 @@
                 <td>{{ post.content }}</td>
                 <td>{{ post.date_created.date() }}</td>
                 <td>
-                    <a href="/delete/{{post.id}}">Delete</a>
+                    <a href="/edit/{{post.id}}">Edit</a>
                     <br>
-                    <a href="/update/{{post.id}}">Update</a>
+                    <a href="/delete/{{post.id}}">Delete</a>
                 </td>
             </tr>
         {% endfor %}
