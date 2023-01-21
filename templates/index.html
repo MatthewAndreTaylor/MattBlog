@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Matthew's Blog</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="content">
+    <h1 style="text-align: center">Matt's Blog</h1>
+    <a href="/login" role="button" class="btn btn-primary" style="float: right;">Login</a>
+
+    <div class="prx-hover"></div>
+    <div class="bird">
+        <img id="anchor" src="static/images/bird.png" alt="bird" width="140" height="140">
+        <div id="eyes">
+            <img class="eye eye-left" src="static/images/eye.png" alt="eye left" width="9">
+            <img class="eye eye-right" src="static/images/eye.png" alt="eye right" width="9">
+        </div>
+    </div>
+    <div class="container">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Github</h5>
+                <p class="card-text">View this project on github</p>
+                <a href="#" class="btn btn-outline-primary">View</a>
+            </div>
+        </div>
+    </div>
+
+    {% if posts|length < 1 %}
+    <h4 style="text-align: center">No posts yet</h4>
+    {% else %}
+    <div class="container">
+        {% for post in posts %}
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.content }}</p>
+            </div>
+            <div class="card-footer text-muted">
+                Last Edited: {{ post.date_created.date() }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+<script type="text/javascript">
+document.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    const anchor = document.getElementById('anchor');
+    const rekt = anchor.getBoundingClientRect();
+    const anchorX = rekt.left + rekt.width / 2;
+    const anchorY = rekt.top + rekt.height / 2;
+    const eyes = document.querySelectorAll('.eye');
+    const angleDeg =  angle(mouseX, mouseY, anchorX, anchorY);
+    eyes.forEach(eye =>{
+        eye.style.transform = `rotate(${100+angleDeg}deg)`
+    })
+})
+
+function angle(cx, cy, ex, ey)
+{
+    const dy = ey - cy;
+    const dx = ex - cx;
+
+    const rad = Math.atan2(dy, dx);
+    const deg = rad * 180 / Math.PI;
+    return deg;
+}
+</script>
+{% endblock %}
