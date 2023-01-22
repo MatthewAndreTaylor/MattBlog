@@ -13,14 +13,14 @@
             <div class="col-12">
                 <div class="input-group">
                     <div class="input-group-text">Title</div>
-                    <input type="text" class="form-control" name="title" id="title">
+                    <input type="text" class="form-control" name="title" id="title" value="{{post.title}}">
                 </div>
             </div>
 
             <div class="col-12">
                 <div class="input-group">
                     <div class="input-group-text">Content</div>
-                    <input type="text" class="form-control" name="content" id="content">
+                    <textarea class="form-control" id="content" name="content" rows="15">{{post.content}}</textarea>
                 </div>
             </div>
 
