@@ -7,6 +7,7 @@ Full Stack Personal Blog App
 
 - Render pages with flask
 - Update the database if the user is authenticated
+- Style posts with `![code]` tag as snippets of code
 - Login with flask-authentication
 - Use Css Styling and bootstrap components for the design
 
