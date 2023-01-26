@@ -4,6 +4,7 @@ from datetime import datetime
 from flask_login import LoginManager, login_user, UserMixin, login_required
 import os
 import hmac
+import random
 
 import config
 
@@ -19,8 +20,15 @@ login_manager.login_view = "login"
 
 users = config.accounts
 
+
 class User(UserMixin):
     pass
+
+
+def encode(s: str) -> str:
+    random.seed(s)
+    return "".join(random.choice("HDSORMCasdwfegrjgovncxer19854nd")
+                   for _ in range(45))
 
 
 @login_manager.user_loader
@@ -50,7 +58,7 @@ def login():
         return render_template('login.html')
 
     email = request.form['email']
-    if email in users and hmac.compare_digest(request.form['password'],
+    if email in users and hmac.compare_digest(encode(request.form['password']),
                                               users[email]['password']):
         user = User()
         user.id = email
