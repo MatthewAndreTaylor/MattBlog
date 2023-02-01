@@ -23,7 +23,7 @@
             <div class="card-body">
                 <h5 class="card-title">Github</h5>
                 <p class="card-text">View this project on github</p>
-                <a href="#" class="btn btn-outline-primary">View</a>
+                <a href="https://github.com/MatthewAndreTaylor/MattBlog" rel="noopener" target="_blank" class="btn btn-outline-primary">View</a>
             </div>
         </div>
     </div>
@@ -36,49 +36,31 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title text-center">{{ post.title }}</h5>
-                {% if post.content.startswith("![code]") %}
+                {% if post.content.startswith("![code]-p") %}
+                <pre class="python">
+                        <code>
+                            {{ post.content[9:] }}
+                        </code>
+                    </pre>
+                {% elif post.content.startswith("![code]") %}
                 <pre>
-                    <code>
-                        {{ post.content[7:] }}
-                    </code>
-                </pre>
+                        <code>
+                            {{ post.content[7:] }}
+                        </code>
+                    </pre>
                 {% else %}
                 <p class="card-text text-center">{{ post.content }}</p>
                 {% endif %}
             </div>
             <div class="card-footer text-muted">
-                Last Edited: {{ post.date_created.date() }}
+                Last Edited: {{ post.date_created.date().strftime("%b. %d, %Y") }}
             </div>
         </div>
         {% endfor %}
     </div>
     {% endif %}
 </div>
-<script type="text/javascript">
-document.addEventListener('mousemove', (e) => {
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-    const anchor = document.getElementById('anchor');
-    const rekt = anchor.getBoundingClientRect();
-    const anchorX = rekt.left + rekt.width / 2;
-    const anchorY = rekt.top + rekt.height / 2;
-    const eyes = document.querySelectorAll('.eye');
-    const angleDeg =  angle(mouseX, mouseY, anchorX, anchorY);
-    eyes.forEach(eye =>{
-        eye.style.transform = `rotate(${100+angleDeg}deg)`
-    })
-})
-
-function angle(cx, cy, ex, ey)
-{
-    const dy = ey - cy;
-    const dx = ex - cx;
-
-    const rad = Math.atan2(dy, dx);
-    const deg = rad * 180 / Math.PI;
-    return deg;
-}
-</script>
+<script type="text/javascript" src="/static/js/eyetransform.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js" crossorigin="anonymous"></script>
 <script>hljs.highlightAll();</script>
 {% endblock %}
