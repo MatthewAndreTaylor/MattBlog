@@ -8,7 +8,7 @@ body {
 
 .content {
     margin: 0 auto;
-    width: clamp(24rem, 50vw, 60rem);
+    width: clamp(24rem, 60vw, 60rem);
 }
 
 .form {
