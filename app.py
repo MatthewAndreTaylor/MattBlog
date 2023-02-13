@@ -64,7 +64,6 @@ def login():
         user.id = email
         login_user(user)
         return redirect('/post')
-
     return redirect('/post')
 
 
@@ -80,7 +79,13 @@ class Post(db.Model):
 
 @app.route('/', methods=['GET'])
 def index():
-    posts = Post.query.order_by(Post.date_created).all()[::-1]
+    posts = Post.query.order_by(Post.date_created.desc()).limit(15).all()
+    return render_template('index.html', posts=posts)
+
+
+@app.route('/more', methods=['GET'])
+def more():
+    posts = Post.query.order_by(Post.date_created.desc()).all()
     return render_template('index.html', posts=posts)
 
 
