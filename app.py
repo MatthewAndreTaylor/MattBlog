@@ -44,8 +44,12 @@ def request_loader(request):
 @app.route('/update')
 @login_required
 def update():
-    origin = git.Repo().remotes.origin
-    origin.pull()
+    try:
+        origin = git.Repo().remotes.origin
+        origin.pull()
+        return 'Updated successfully', 200
+    except git.GitError:
+        return 'Unable to update', 400
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
