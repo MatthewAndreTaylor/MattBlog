@@ -1,0 +1,29 @@
+{% for post in posts.items %}
+{% if loop.last and posts.has_next %}
+    <div class="card" hx-get="{{url_for('posts', page=posts.next_num)}}" hx-trigger="revealed" hx-swap="afterend" hx-indicator="#spinner">
+{% else %}
+    <div class="card">
+        {% endif %}
+        <div class="card-body">
+            <h3 class="card-title text-center">{{ post.title }}</h3>
+            {% if post.content.startswith("![code]-p") %}
+            <pre class="python">
+                <code>
+                    {{ post.content[9:] }}
+                </code>
+            </pre>
+            {% elif post.content.startswith("![code]") %}
+            <pre>
+                <code>
+                    {{ post.content[7:] }}
+                </code>
+            </pre>
+            {% else %}
+                <p class="card-text text-center">{{ post.content }}</p>
+            {% endif %}
+        </div>
+        <div class="card-footer text-muted">
+            Last Edited: {{ post.date_created.date().strftime("%b. %d, %Y") }}
+        </div>
+    </div>
+{% endfor %}

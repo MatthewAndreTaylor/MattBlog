@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap');
+*{
+	margin: 0;
+	padding: 0;
+    box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    --primary-color: #6da2dd;
+    --secondary-color: #7875B5;
+    --hover-color: #6A679E;
+    --shadow-color: #5C5696;
+}
+
+body {
+	background: linear-gradient(95deg, #C7C5F4, #6da2dd);
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+}
+
+.screen {
+	background: linear-gradient(90deg, #D7E1EC, #f2f7ff);
+	border-radius: 1rem;
+	position: relative;
+	height: 520px;
+	width: 360px;
+	box-shadow: 0px 0px 24px var(--shadow-color);
+}
+
+.screen-content {
+	position: relative;
+	z-index: 1;
+}
+
+.login {
+	width: 320px;
+	padding: 30px;
+	padding-top: 100px;
+}
+
+.login-field {
+	padding: 20px 0px;
+	position: relative;
+}
+
+.login-icon {
+	position: absolute;
+	top: 30px;
+	color: var(--secondary-color);
+}
+
+.login-input {
+	border: none;
+	border-radius: 5px;
+	border-bottom: 2px solid #D1D1D4;
+	background: none;
+	padding: 10px;
+	padding-left: 30px;
+	font-weight: 550;
+	width: 95%;
+	transition: .2s;
+}
+
+.login-input:active,
+.login-input:focus,
+.login-input:hover {
+	outline: none;
+	border-bottom-color: var(--hover-color);
+}
+
+.login-submit {
+	background: #fff;
+	font-size: 14px;
+	margin-top: 30px;
+	padding: 16px 20px;
+	border-radius: 26px;
+	border: 1px solid #D4D3E8;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	color: var(--primary-color);
+	box-shadow: 0px 2px 2px var(--shadow-color);
+	cursor: pointer;
+	transition: .2s;
+}
+
+.login-submit:active,
+.login-submit:focus,
+.login-submit:hover {
+	border-color: var(--hover-color);
+	outline: none;
+	transform: translateY(-2px);
+}
+
+.button-icon {
+	font-size: 24px;
+	margin-left: auto;
+	color: var(--secondary-color);
+}
+
+.prx-hover{
+	position: absolute;
+	width: 140px;
+	height: 100px;
+	top: -90px;
+	z-index: 10;
+}
+
+.prx-hover:hover ~ .bird{
+	transform: translateY(-45px);
+}
+
+.bird{
+	position: absolute;
+	transform: translateY(-70px);
+	transition: all 0.75s ease-in-out;
+	z-index: -1;
+}
+
+#eyes, #eyes img{
+	position: absolute;
+	border-radius: 10;
+}
+
+.eye-left{
+	top: -110px;
+	right: -63px;
+}
+.eye-right{
+	top: -112px;
+	right: -83px;
+}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Matthew's Blog</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="content">
+    <h1 style="text-align: center">Matt's Code Everyday Blog</h1>
+    <a href="/login" role="button" class="btn btn-primary" style="float: right;">Login</a>
+
+    <div class="prx-hover"></div>
+    <div class="bird">
+        <img id="anchor" src="static/images/bird.png" alt="bird" width="140" height="140">
+        <div id="eyes">
+            <img class="eye eye-left" src="static/images/eye.png" alt="eye left" width="9">
+            <img class="eye eye-right" src="static/images/eye.png" alt="eye right" width="9">
+        </div>
+    </div>
+    <div class="container">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2 class="card-title">Github</h2>
+                <p class="card-text">View this project on github</p>
+                <a href="https://github.com/MatthewAndreTaylor/MattBlog" rel="noopener" target="_blank" class="btn btn-outline-primary">View</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="post-list" class="container">
+        {% include 'partial_posts.html' %}
+    </div>
+    <div id="spinner" class="d-flex justify-content-center htmx-indicator">
+        <div class="spinner-border m-5" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous" defer></script>
+<script type="text/javascript" src="/static/js/eyetransform.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js" crossorigin="anonymous"></script>
+<script>
+    hljs.highlightAll();
+    const targetNode = document.getElementById("post-list");
+    const config = { childList: true };
+    const callback = (mutationList, observer) => {
+      for (const mutation of mutationList) {
+        for (let i = 0; i < mutation.addedNodes.length; i++) {
+            if (mutation.addedNodes[i].nodeType === 1)
+            {
+                let selection = mutation.addedNodes[i].querySelectorAll('pre code');
+                selection.forEach(function(el) {
+                    hljs.highlightElement(el);
+                });
+            }
+        }
+      }
+    }
+    const observer = new MutationObserver(callback);
+    observer.observe(targetNode, config);
+</script>
+{% endblock %}

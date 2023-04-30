@@ -1,0 +1,9 @@
+env
+requirements.txt
+config.py
+.idea
+.vscode
+.pytest_cache
+__pycache__
+.venv
+*.db
