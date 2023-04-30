@@ -44,7 +44,7 @@ def request_loader(request):
 @app.route('/update')
 @login_required
 def update():
-    origin = git.Repo('https://github.com/MatthewAndreTaylor/MattBlog').remotes.origin
+    origin = git.Repo().remotes.origin
     origin.pull()
 
 @app.route("/login", methods=["GET", "POST"])
