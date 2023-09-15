@@ -1,26 +1,31 @@
 {% for post in posts.items %}
 {% if loop.last and posts.has_next %}
-    <div class="card" hx-get="{{url_for('posts', page=posts.next_num)}}" hx-trigger="revealed" hx-swap="afterend" hx-indicator="#spinner">
+    <div class="card" hx-get="{{url_for('posts', page=posts.next_num)}}" hx-trigger="revealed" hx-swap="afterend" hx-indicator="#spinner"/>
 {% else %}
     <div class="card">
         {% endif %}
         <div class="card-body">
             <h3 class="card-title text-center">{{ post.title }}</h3>
-            {% if post.content.startswith("![code]-p") %}
-            <pre class="python">
-                <code>
-                    {{ post.content[9:] }}
-                </code>
-            </pre>
-            {% elif post.content.startswith("![code]") %}
-            <pre>
-                <code>
-                    {{ post.content[7:] }}
-                </code>
-            </pre>
-            {% else %}
-                <p class="card-text text-center">{{ post.content }}</p>
-            {% endif %}
+
+            {% for token in post.content | tokenize %}
+                {% if token[0] == "py" %}
+                    <pre class="python">
+                        <code>
+                            {{ token[1] }}
+                        </code>
+                    </pre>
+                {% elif token[0] == "code" %}
+                    <pre>
+                        <code>
+                            {{ token[1] }}
+                        </code>
+                    </pre>
+                {% elif token[0] == "a" %}
+                    <a class="card-text" href="{{ token[1] }}"> {{ token[1] }} </a>
+                {% else %}
+                    <p class="card-text text-center">{{ token[1] }}</p>
+                {% endif %}
+            {% endfor %}
         </div>
         <div class="card-footer text-muted">
             Last Edited: {{ post.date_created.date().strftime("%b. %d, %Y") }}

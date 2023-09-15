@@ -3,13 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_login import LoginManager, login_user, UserMixin, login_required
 import hmac
-import git
 import config
+import re
 
 app = Flask(__name__)
 app.secret_key = config.key
 users = config.users
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SESSION_COOKIE_SAMESITE"] = "Strict"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///posts.db"
 db = SQLAlchemy(app)
 
@@ -39,17 +40,6 @@ def request_loader(request):
     user = User()
     user.id = email
     return user
-
-
-@app.route('/update')
-@login_required
-def update():
-    try:
-        origin = git.Repo().remotes.origin
-        origin.pull()
-        return 'Updated successfully', 200
-    except git.GitError:
-        return 'Unable to update', 400
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -143,6 +133,11 @@ def edit(id):
     else:
         return render_template("edit.html", post=post)
 
+@app.template_filter('tokenize')
+def tokenize_post(content: str):
+    pattern = r'<([^>]+)>(.*?)<\1>'
+    matches = re.findall(pattern, content, re.DOTALL)
+    return matches
 
 if __name__ == "__main__":
     app.run()
