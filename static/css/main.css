@@ -49,6 +49,18 @@ body {
 	top: -112px;
 	right: -83px;
 }
+.liked{
+    color:red !important;
+}
+.like{
+    color:grey;
+    float: right;
+    text-decoration: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-text-select: none;
+    -webkit-user-select: none;
+}
 pre code.hljs {
     display:block;
     overflow-x:auto;

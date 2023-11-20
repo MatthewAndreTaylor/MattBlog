@@ -1,17 +1,21 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_login import LoginManager, login_user, UserMixin, login_required
 import hmac
 import config
 import re
+from flask_session import Session
 
 app = Flask(__name__)
 app.secret_key = config.key
 users = config.users
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SESSION_COOKIE_SAMESITE"] = "Strict"
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SECURE"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///posts.db"
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
@@ -31,15 +35,6 @@ def user_loader(email: str):
     user.id = email
     return user
 
-
-@login_manager.request_loader
-def request_loader(request):
-    email = request.form.get("email")
-    if email not in users:
-        return
-    user = User()
-    user.id = email
-    return user
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -68,10 +63,7 @@ class Post(db.Model):
 
 @app.route("/", methods=["GET"])
 def index():
-    page = request.args.get("page", 1, type=int)
-    posts = Post.query.order_by(Post.date_created.desc()).paginate(
-        page=page, per_page=7
-    )
+    posts = Post.query.order_by(Post.date_created.desc()).paginate(page=1, per_page=7)
     return render_template("index.html", posts=posts)
 
 
@@ -82,6 +74,24 @@ def posts():
         page=page, per_page=7
     )
     return render_template("partial_posts.html", posts=posts)
+
+
+@app.route("/like_action/<int:post_id>/<action>", methods=["GET"])
+def like_action(post_id, action):
+    liked_posts = session.get("liked_posts", set())
+
+    if action == "like":
+        liked_posts.add(post_id)
+    if action == "unlike":
+        liked_posts.discard(post_id)
+
+    session["liked_posts"] = liked_posts
+    return "200"
+
+
+@app.template_filter("is_liked")
+def is_liked(post_id):
+    return post_id in session.get("liked_posts", set())
 
 
 @app.route("/post", methods=["POST", "GET"])
@@ -133,11 +143,13 @@ def edit(id):
     else:
         return render_template("edit.html", post=post)
 
-@app.template_filter('tokenize')
+
+@app.template_filter("tokenize")
 def tokenize_post(content: str):
-    pattern = r'<([^>]+)>(.*?)<\1>'
+    pattern = r"<([^>]+)>(.*?)<\1>"
     matches = re.findall(pattern, content, re.DOTALL)
     return matches
+
 
 if __name__ == "__main__":
     app.run()

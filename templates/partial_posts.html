@@ -7,28 +7,31 @@
         <div class="card-body">
             <h3 class="card-title text-center">{{ post.title }}</h3>
 
-            {% for token in post.content | tokenize %}
-                {% if token[0] == "py" %}
+            {% for token, content in post.content | tokenize %}
+                {% if token == "py" %}
                     <pre class="python">
                         <code>
-                            {{ token[1] }}
+                            {{ content }}
                         </code>
                     </pre>
-                {% elif token[0] == "code" %}
+                {% elif token == "code" %}
                     <pre>
                         <code>
-                            {{ token[1] }}
+                            {{ content }}
                         </code>
                     </pre>
-                {% elif token[0] == "a" %}
-                    <a class="card-text" href="{{ token[1] }}"> {{ token[1] }} </a>
+                {% elif token == "a" %}
+                    <a class="card-text" href="{{ content }}"> {{ content }} </a>
                 {% else %}
-                    <p class="card-text text-center">{{ token[1] }}</p>
+                    <p class="card-text text-center">{{ content }}</p>
                 {% endif %}
             {% endfor %}
         </div>
         <div class="card-footer text-muted">
             Last Edited: {{ post.date_created.date().strftime("%b. %d, %Y") }}
+            <a type="button" id="like-{{ post.id }}" onclick="toggleLike({{ post.id }})" class="{{ 'liked' if post.id | is_liked else ''}} like">
+                {{ '♥ unlike' if post.id | is_liked else '♥ like'}}
+            </a>
         </div>
     </div>
 {% endfor %}
