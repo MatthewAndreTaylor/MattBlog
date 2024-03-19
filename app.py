@@ -6,7 +6,9 @@ import hmac
 import config
 import re
 from flask_session import Session
+from flask_squeeze import Squeeze
 
+squeeze = Squeeze()
 app = Flask(__name__)
 app.secret_key = config.key
 users = config.users
@@ -15,6 +17,8 @@ app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 app.config["SESSION_COOKIE_SECURE"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///posts.db"
 app.config["SESSION_TYPE"] = "filesystem"
+squeeze.init_app(app)
+
 Session(app)
 db = SQLAlchemy(app)
 
@@ -48,7 +52,7 @@ def login():
         user.id = email
         login_user(user)
         return redirect("/post")
-    return redirect("/post")
+    return redirect("/login")
 
 
 class Post(db.Model):
@@ -76,10 +80,9 @@ def posts():
     return render_template("partial_posts.html", posts=posts)
 
 
-@app.route("/like_action/<int:post_id>/<action>", methods=["GET"])
-def like_action(post_id, action):
+@app.route("/like_action/<int:post_id>/<string:action>", methods=["GET"])
+def like_action(post_id: int, action: str):
     liked_posts = session.get("liked_posts", set())
-
     if action == "like":
         liked_posts.add(post_id)
     if action == "unlike":
@@ -113,11 +116,10 @@ def post():
         return render_template("post.html", posts=posts)
 
 
-@app.route("/delete/<int:id>")
+@app.route("/delete/<int:post_id>")
 @login_required
-def delete(id):
-    post_to_delete = Post.query.get_or_404(id)
-
+def delete(post_id: int):
+    post_to_delete = Post.query.get_or_404(post_id)
     try:
         db.session.delete(post_to_delete)
         db.session.commit()
@@ -126,11 +128,10 @@ def delete(id):
         return "Sorry couldn't delete the post"
 
 
-@app.route("/edit/<int:id>", methods=["GET", "POST"])
+@app.route("/edit/<int:post_id>", methods=["GET", "POST"])
 @login_required
-def edit(id):
-    post = Post.query.get_or_404(id)
-
+def edit(post_id: int):
+    post = Post.query.get_or_404(post_id)
     if request.method == "POST":
         post.title = request.form["title"]
         post.content = request.form["content"]

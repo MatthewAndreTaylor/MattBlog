@@ -3,10 +3,9 @@
     <div class="card" hx-get="{{url_for('posts', page=posts.next_num)}}" hx-trigger="revealed" hx-swap="afterend" hx-indicator="#spinner"/>
 {% else %}
     <div class="card">
-        {% endif %}
+{% endif %}
         <div class="card-body">
             <h3 class="card-title text-center">{{ post.title }}</h3>
-
             {% for token, content in post.content | tokenize %}
                 {% if token == "py" %}
                     <pre class="python">
@@ -21,15 +20,15 @@
                         </code>
                     </pre>
                 {% elif token == "a" %}
-                    <a class="card-text" href="{{ content }}"> {{ content }} </a>
+                    <a class="card-link" href="{{ content }}"> {{ content }} </a>
                 {% else %}
-                    <p class="card-text text-center">{{ content }}</p>
+                    <p class="card-text">{{ content }}</p>
                 {% endif %}
             {% endfor %}
         </div>
         <div class="card-footer text-muted">
             Last Edited: {{ post.date_created.date().strftime("%b. %d, %Y") }}
-            <a type="button" id="like-{{ post.id }}" onclick="toggleLike({{ post.id }})" class="{{ 'liked' if post.id | is_liked else ''}} like">
+            <a type="button" id="like-{{ post.id }}" onclick="toggleLike({{ post.id }})" class="{{ 'liked ' if post.id | is_liked else ''}}like">
                 {{ '♥ unlike' if post.id | is_liked else '♥ like'}}
             </a>
         </div>

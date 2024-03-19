@@ -5,11 +5,12 @@ Full Stack Personal Blog App
 
 ## Project Goals ⛳
 
-- Render pages with flask
-- Update the database if the user is authenticated
-- Style posts with `![code]` tag as snippets of code
-- Login with flask-authentication
-- Use Css Styling and bootstrap components for the design
+- Render pages with Python and Flask 🐍
+- Authenticated users should be allowed to modify the posts feed (create, read, update, delete) 💱
+- Style posts with tags such as `<py>` to highlight snippets of python code 👨‍💻
+- Login with flask-authentication 🔐
+- Use CSS styling, custom animations and bootstrap components for the design 🎨
+- Add modern features like pagination and likes 💗
 
 [![Website](https://img.shields.io/badge/Flask-matthewtaylor.pythonanywhere.com-informational?style=flat-square&color=E23237&logo=flask&logoColor=white)](https://matthewtaylor.pythonanywhere.com)
 

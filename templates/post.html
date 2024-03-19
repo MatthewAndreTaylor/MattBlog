@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
+<link href="static/css/bootstrap-edit.min.css" rel="stylesheet">
 <title>Create Blog Posts</title>
 {% endblock %}
 
@@ -30,33 +31,31 @@
         </form>
     </div>
 
-    {% if posts|length < 1 %}
-    <h4 style="text-align: center">No posts yet</h4>
-    {% else %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Content</th>
-                <th scope="col">Last Edited</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for post in posts[::-1] %}
-            <tr>
-                <th scope="row">{{ post.title }}</th>
-                <td>{{ post.content }}</td>
-                <td>{{ post.date_created.date() }}</td>
-                <td>
-                    <a href="/edit/{{post.id}}">Edit</a>
-                    <br>
-                    <a href="/delete/{{post.id}}">Delete</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% endif %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Last Edited</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for post in posts[::-1] %}
+                <tr>
+                    <th scope="row">{{ post.title }}</th>
+                    <td>{{ post.content }}</td>
+                    <td>{{ post.date_created.date() }}</td>
+                    <td>
+                        <a href="/edit/{{post.id}}">Edit</a>
+                        <br>
+                        <a href="/delete/{{post.id}}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

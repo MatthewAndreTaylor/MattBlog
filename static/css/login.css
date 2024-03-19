@@ -6,13 +6,6 @@
 	font-family: 'Poppins', sans-serif;
 }
 
-:root{
-    --primary-color: #6da2dd;
-    --secondary-color: #7875B5;
-    --hover-color: #6A679E;
-    --shadow-color: #5C5696;
-}
-
 body {
 	background: linear-gradient(95deg, #C7C5F4, #6da2dd);
 }
@@ -28,18 +21,14 @@ body {
 	background: linear-gradient(90deg, #D7E1EC, #f2f7ff);
 	border-radius: 1rem;
 	position: relative;
-	height: 520px;
-	width: 360px;
-	box-shadow: 0px 0px 24px var(--shadow-color);
+	box-shadow: 0px 0px 24px #5C5696;
 }
 
 .screen-content {
-	position: relative;
 	z-index: 1;
 }
 
 .login {
-	width: 320px;
 	padding: 30px;
 	padding-top: 100px;
 }
@@ -52,7 +41,7 @@ body {
 .login-icon {
 	position: absolute;
 	top: 30px;
-	color: var(--secondary-color);
+	color: #7875B5;
 }
 
 .login-input {
@@ -71,7 +60,7 @@ body {
 .login-input:focus,
 .login-input:hover {
 	outline: none;
-	border-bottom-color: var(--hover-color);
+	border-bottom-color: #6A679E;
 }
 
 .login-submit {
@@ -85,8 +74,8 @@ body {
 	display: flex;
 	align-items: center;
 	width: 100%;
-	color: var(--primary-color);
-	box-shadow: 0px 2px 2px var(--shadow-color);
+	color: #6da2dd;
+	box-shadow: 0px 2px 2px #5C5696;
 	cursor: pointer;
 	transition: .2s;
 }
@@ -94,7 +83,7 @@ body {
 .login-submit:active,
 .login-submit:focus,
 .login-submit:hover {
-	border-color: var(--hover-color);
+	border-color: #6A679E;
 	outline: none;
 	transform: translateY(-2px);
 }
@@ -102,7 +91,7 @@ body {
 .button-icon {
 	font-size: 24px;
 	margin-left: auto;
-	color: var(--secondary-color);
+	color: #7875B5;
 }
 
 .prx-hover{
@@ -126,7 +115,6 @@ body {
 
 #eyes, #eyes img{
 	position: absolute;
-	border-radius: 10;
 }
 
 .eye-left{

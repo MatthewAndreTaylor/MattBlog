@@ -1,19 +1,9 @@
-document.addEventListener('mousemove', (event) => {
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
-    const anchor = document.getElementById('anchor');
-    const rekt = anchor.getBoundingClientRect();
-    const anchorX = rekt.left + rekt.width / 2;
-    const anchorY = rekt.top + rekt.height / 2;
-    const eyes = document.querySelectorAll('.eye');
-    const angleDeg =  angle(mouseX, mouseY, anchorX, anchorY);
-    eyes.forEach(eye =>{
-        eye.style.transform = `rotate(${100+angleDeg}deg)`
-    })
-})
-
-function angle(cx, cy, ex, ey)
-{
-    const rad = Math.atan2(ey - cy, ex - cx);
-    return rad * 180 / Math.PI;
-}
+const anchor = document.getElementById('anchor');
+const eyes = document.querySelectorAll('.eye');
+document.addEventListener('mousemove', (e) => {
+    const dim =  anchor.getBoundingClientRect();
+    const anchorX = dim.left + dim.width / 2;
+    const anchorY = dim.top + dim.height / 2;
+    const angle = Math.atan2(anchorY - e.clientY,anchorX - e.clientX) * 180 / Math.PI;
+    eyes.forEach(eye => eye.style.transform = `rotate(${100 + angle}deg)`);
+});
