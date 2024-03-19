@@ -5,45 +5,34 @@
     box-sizing: border-box;
 	font-family: 'Poppins', sans-serif;
 }
-
 body {
 	background: linear-gradient(95deg, #C7C5F4, #6da2dd);
-}
-
-.container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
 }
-
 .screen {
 	background: linear-gradient(90deg, #D7E1EC, #f2f7ff);
 	border-radius: 1rem;
 	position: relative;
 	box-shadow: 0px 0px 24px #5C5696;
 }
-
 .screen-content {
 	z-index: 1;
 }
-
 .login {
 	padding: 30px;
 	padding-top: 100px;
 }
-
 .login-field {
 	padding: 20px 0px;
 	position: relative;
 }
-
 .login-icon {
 	position: absolute;
 	top: 30px;
-	color: #7875B5;
 }
-
 .login-input {
 	border: none;
 	border-radius: 5px;
@@ -55,17 +44,14 @@ body {
 	width: 95%;
 	transition: .2s;
 }
-
 .login-input:active,
 .login-input:focus,
 .login-input:hover {
 	outline: none;
 	border-bottom-color: #6A679E;
 }
-
 .login-submit {
 	background: #fff;
-	font-size: 14px;
 	margin-top: 30px;
 	padding: 16px 20px;
 	border-radius: 26px;
@@ -74,12 +60,11 @@ body {
 	display: flex;
 	align-items: center;
 	width: 100%;
-	color: #6da2dd;
+	color: #0d6efd;
 	box-shadow: 0px 2px 2px #5C5696;
 	cursor: pointer;
 	transition: .2s;
 }
-
 .login-submit:active,
 .login-submit:focus,
 .login-submit:hover {
@@ -87,13 +72,9 @@ body {
 	outline: none;
 	transform: translateY(-2px);
 }
-
 .button-icon {
-	font-size: 24px;
 	margin-left: auto;
-	color: #7875B5;
 }
-
 .prx-hover{
 	position: absolute;
 	width: 140px;
@@ -101,27 +82,23 @@ body {
 	top: -90px;
 	z-index: 10;
 }
-
 .prx-hover:hover ~ .bird{
 	transform: translateY(-45px);
 }
-
 .bird{
 	position: absolute;
 	transform: translateY(-70px);
 	transition: all 0.75s ease-in-out;
 	z-index: -1;
 }
-
 #eyes, #eyes img{
 	position: absolute;
 }
-
 .eye-left{
-	top: -110px;
-	right: -63px;
+	top: -116px;
+	right: -64px;
 }
 .eye-right{
-	top: -112px;
+	top: -118px;
 	right: -83px;
 }
